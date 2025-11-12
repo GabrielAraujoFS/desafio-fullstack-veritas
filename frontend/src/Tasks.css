@@ -1,23 +1,29 @@
+
 body {
   background-color: #007b83;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .kanban-container {
   padding: 20px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: #000;
 }
 
 h1 {
   margin-bottom: 20px;
+  color: #fff;
 }
 
+/*  Formulario  */
 .form {
   margin-bottom: 25px;
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .form input {
@@ -26,6 +32,7 @@ h1 {
   border: none;
   width: 200px;
   outline: none;
+  font-size: 14px;
 }
 
 .form button {
@@ -36,12 +43,14 @@ h1 {
   border-radius: 6px;
   cursor: pointer;
   transition: 0.3s;
+  font-weight: 500;
 }
 
 .form button:hover {
   background-color: #3c9e42;
 }
 
+/* Kanban */
 .kanban-board {
   display: flex;
   justify-content: center;
@@ -56,6 +65,7 @@ h1 {
   border-radius: 10px;
   min-height: 400px;
   transition: background 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .kanban-column:hover {
@@ -63,30 +73,39 @@ h1 {
 }
 
 .kanban-column h2 {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.8);
   color: #333;
   padding: 8px;
   border-radius: 6px;
+  margin-bottom: 10px;
 }
 
+/*  Cards  */
 .task-card {
   background: white;
   color: #333;
   margin: 10px 0;
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   cursor: grab;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .task-card:active {
   cursor: grabbing;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .task-card h3 {
   margin: 0;
   font-size: 16px;
+  font-weight: 600;
 }
 
 .task-card p {
@@ -95,16 +114,56 @@ h1 {
   margin: 5px 0 10px;
 }
 
-.delete-btn {
-  background: #e74c3c;
+/* Botões */
+.task-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.edit-btn {
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 5px 10px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 13px;
+  transition: 0.2s;
+}
+
+.edit-btn:hover {
+  background-color: #0056b3;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
 }
 
 .delete-btn:hover {
-  background: #c0392b;
+  background-color: #c0392b;
+}
+
+/* Botões de Edição */
+.form button:nth-child(3) {
+  background-color: #007bff;
+}
+
+.form button:nth-child(3):hover {
+  background-color: #0056b3;
+}
+
+.form button:nth-child(4) {
+  background-color: #e74c3c;
+}
+
+.form button:nth-child(4):hover {
+  background-color: #c0392b;
 }

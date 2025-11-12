@@ -7,6 +7,7 @@ function Tasks() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [draggedTask, setDraggedTask] = useState(null);
+  const [editingTask, setEditingTask] = useState(null); 
 
   useEffect(() => {
     fetchTasks();
@@ -46,6 +47,31 @@ function Tasks() {
     }
   };
 
+  const handleEdit = (task) => {
+    setEditingTask(task); 
+    setTitle(task.title);
+    setDescription(task.description);
+  };
+
+  const saveEdit = async () => {
+    if (!editingTask) return;
+    await api.put(`/tasks/${editingTask.id}`, {
+      title,
+      description,
+      status: editingTask.status,
+    });
+    setEditingTask(null);
+    setTitle("");
+    setDescription("");
+    fetchTasks();
+  };
+
+  const cancelEdit = () => {
+    setEditingTask(null);
+    setTitle("");
+    setDescription("");
+  };
+
   const columns = [
     { key: "todo", title: "A Fazer", color: "#ffb3b3" },
     { key: "inprogress", title: "Em Progresso", color: "#fff2a8" },
@@ -69,7 +95,15 @@ function Tasks() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <button onClick={addTask}>Adicionar</button>
+
+        {editingTask ? (
+          <>
+            <button onClick={saveEdit}>Salvar</button>
+            <button onClick={cancelEdit}>Cancelar</button>
+          </>
+        ) : (
+          <button onClick={addTask}>Adicionar</button>
+        )}
       </div>
 
       <div className="kanban-board">
@@ -93,12 +127,20 @@ function Tasks() {
                 >
                   <h3>{t.title}</h3>
                   <p>{t.description}</p>
-                  <button
-                    className="delete-btn"
-                    onClick={() => deleteTask(t.id)}
-                  >
-                    🗑
-                  </button>
+                  <div className="task-actions">
+                    <button
+                      className="edit-btn"
+                      onClick={() => handleEdit(t)}
+                    >
+                      ✏️ Editar
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => deleteTask(t.id)}
+                    >
+                      🗑 Excluir
+                    </button>
+                  </div>
                 </div>
               ))}
           </div>
